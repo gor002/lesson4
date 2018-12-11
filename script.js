@@ -5,7 +5,7 @@ function main() {
     var button = document.getElementById('submit');
     var button1 = document.getElementById('delete');
 
- 
+
     function handleSubmit(evt) {
         var val = input.value;
         if (val != "") {
@@ -16,6 +16,7 @@ function main() {
 
     function handleDelete() {
         socket.emit("karam jnjem?");
+
     }
     button1.onclick = handleDelete;
 
@@ -26,10 +27,18 @@ function main() {
         p.innerText = msg;
         chatDiv.appendChild(p);
         input.value = "";
-}
+    }
+    function deleteFromDom() {
+        var pTags = document.getElementsByTagName("p");
+        for(var i in pTags){
+            if(pTags.length > 0){
+                chatDiv.removeChild(pTags[0]);
+            }
+        }
+    }
 
-socket.on('display message', handleMessage);
-socket.on('karam jnjem?', handleDelete);
+    socket.on('display message', handleMessage);
+    socket.on("jnjeq", deleteFromDom);
 
 } // main closing bracket
 
